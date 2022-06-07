@@ -1,26 +1,26 @@
 package com.example.minitodomanagement.service;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.minitodomanagement.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.example.minitodomanagement.model.Todo;
 
-import  com.example.minitodomanagement.model.Todo;
-import com.example.minitodomanagement.repository.ToDoRepository;
+@Service
+public class TodoService implements ITodoService {
 
-public class TodoService implements IToDoService {
     @Autowired
-    private ToDoRepository todoRepository;
+    private TodoRepository todoRepository;
 
     @Override
-    public List < Todo > getTodosByUser(String user) {
-        return todoRepository.findByUsername(user);
+    public List<Todo> getTodosByUser(String user) {
+        return todoRepository.findByUserName(user);
     }
 
     @Override
-    public Optional < Todo > getTodoById(long id) {
+    public Optional<Todo> getTodoById(long id) {
         return todoRepository.findById(id);
     }
 
@@ -36,7 +36,7 @@ public class TodoService implements IToDoService {
 
     @Override
     public void deleteTodo(long id) {
-        Optional < Todo > todo = todoRepository.findById(id);
+        Optional<Todo> todo = todoRepository.findById(id);
         if (todo.isPresent()) {
             todoRepository.delete(todo.get());
         }
@@ -45,5 +45,4 @@ public class TodoService implements IToDoService {
     @Override
     public void saveTodo(Todo todo) {
         todoRepository.save(todo);
-    }
-}
+    }}
